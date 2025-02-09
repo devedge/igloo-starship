@@ -1,0 +1,73 @@
+# Igloo/Nord themed Starship prompt
+
+format = """
+[┌─╼(\\[$username$hostname\\]╾─╼)($jobs$status╾─╼)($time)
+└─╼$directory(
+ ╰╼\\[${custom.git_current_branch}$git_status$git_branch\\]╾─╼$git_commit)
+$character](bright-black)"""
+
+add_newline = true
+
+[character]
+success_symbol = '[▶](bright-black)'
+error_symbol = '[▶](red)'
+
+[directory]
+format = '\[[$path](blue)[$read_only](bold red)\]'
+repo_root_format = '\[[$repo_root]($repo_root_style)[$path](blue)\]'
+repo_root_style = 'bold cyan'
+truncation_symbol = '…/'
+read_only = '*'
+
+[git_branch]
+format = '[( $remote_name/$remote_branch)](cyan)'
+always_show_remote = true
+
+[custom.git_current_branch]
+command = "git branch --show-current"
+format = "[$output](cyan)"
+when = true
+require_repo = true
+disabled = false
+
+[git_commit]
+format = '\[[$hash(:$tag)](cyan)\]'
+only_detached = false
+tag_disabled = false
+tag_symbol = ''
+
+[git_status]
+format = '[( $conflicted$modified$staged$deleted$renamed$untracked$stashed$typechanged)( $ahead_behind)](cyan)'
+conflicted = '='
+modified = '*'
+staged = '+'
+deleted = 'x'
+renamed = '>>'
+untracked = '%'
+stashed = '\$'
+ahead = '>${count}'
+behind = '<${count}'
+diverged = 'u+${ahead_count}-${behind_count}'
+
+[hostname]
+format = '[[@](white)$hostname](blue)'
+ssh_only = true
+
+[jobs]
+format = '\[[$number](blue)\]'
+number_threshold = 1
+
+[status]
+format = '\[[$int](red)\]'
+disabled = false
+
+[time]
+format = '\[[$time](blue)\]'
+time_format = '%H:%M:%S'
+disabled = false
+
+[username]
+format = '[$user]($style)'
+style_root = 'bold cyan'
+style_user = 'blue'
+show_always = true
